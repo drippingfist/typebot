@@ -13,6 +13,7 @@ import { ImageBubbleContent } from "@/features/blocks/bubbles/image/components/I
 import { TextBubbleContent } from "@/features/blocks/bubbles/textBubble/components/TextBubbleContent";
 import { VideoBubbleContent } from "@/features/blocks/bubbles/video/components/VideoBubbleContent";
 import { ButtonsBlockNode } from "@/features/blocks/inputs/buttons/components/ButtonsBlockNode";
+import { ButtonsV2BlockNode } from "@/features/blocks/inputs/buttonsV2/components/ButtonsV2BlockNode";
 import { CardsBlockNode } from "@/features/blocks/inputs/cards/components/CardsBlockNode";
 import { DateNodeContent } from "@/features/blocks/inputs/date/components/DateNodeContent";
 import { EmailInputNodeContent } from "@/features/blocks/inputs/emailInput/components/EmailInputNodeContent";
@@ -87,6 +88,9 @@ export const BlockNodeContent = ({
     }
     case InputBlockType.CHOICE: {
       return <ButtonsBlockNode block={block} indices={indices} />;
+    }
+    case InputBlockType.CHOICE_V2: {
+      return <ButtonsV2BlockNode block={block} indices={indices} />;
     }
     case InputBlockType.PICTURE_CHOICE: {
       return <PictureChoiceNode block={block} indices={indices} />;

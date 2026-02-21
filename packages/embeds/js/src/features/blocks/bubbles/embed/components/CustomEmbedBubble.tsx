@@ -13,7 +13,7 @@ type Props = {
 
 let typingTimeout: NodeJS.Timeout;
 
-export const showAnimationDuration = 400;
+export const showAnimationDuration = 150;
 
 export const CustomEmbedBubble = (props: Props) => {
   let ref: HTMLDivElement | undefined;
@@ -44,7 +44,7 @@ export const CustomEmbedBubble = (props: Props) => {
     typingTimeout = setTimeout(() => {
       setIsTyping(false);
       setTimeout(() => props.onTransitionEnd?.(ref), showAnimationDuration);
-    }, 2000);
+    }, 500);
   });
 
   onCleanup(() => {

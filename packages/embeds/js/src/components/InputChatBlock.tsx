@@ -1,5 +1,6 @@
 import type { CardsBlock } from "@typebot.io/blocks-inputs/cards/schema";
 import type { ChoiceInputBlock } from "@typebot.io/blocks-inputs/choice/schema";
+import type { ChoiceV2InputBlock } from "@typebot.io/blocks-inputs/choiceV2/schema";
 import { InputBlockType } from "@typebot.io/blocks-inputs/constants";
 import type { DateInputBlock } from "@typebot.io/blocks-inputs/date/schema";
 import type { EmailInputBlock } from "@typebot.io/blocks-inputs/email/schema";
@@ -23,6 +24,8 @@ import type { Theme } from "@typebot.io/theme/schemas";
 import { Match, Show, Switch } from "solid-js";
 import { Buttons } from "@/features/blocks/inputs/buttons/components/Buttons";
 import { MultipleChoicesForm } from "@/features/blocks/inputs/buttons/components/MultipleChoicesForm";
+import { ButtonsV2 } from "@/features/blocks/inputs/buttonsV2/components/ButtonsV2";
+import { MultipleChoicesFormV2 } from "@/features/blocks/inputs/buttonsV2/components/MultipleChoicesFormV2";
 import { CardsCaroussel } from "@/features/blocks/inputs/cards/CardsCaroussel";
 import { DateForm } from "@/features/blocks/inputs/date/components/DateForm";
 import { EmailInput } from "@/features/blocks/inputs/email/components/EmailInput";
@@ -207,6 +210,27 @@ const Input = (props: {
           </Switch>
         )}
       </Match>
+      <Match when={isButtonsV2Block(props.block)} keyed>
+        {(block) => (
+          <Switch>
+            <Match when={!block.options?.isMultipleChoice}>
+              <ButtonsV2
+                chunkIndex={props.chunkIndex}
+                defaultItems={block.items}
+                options={block.options}
+                onSubmit={props.onSubmit}
+              />
+            </Match>
+            <Match when={block.options?.isMultipleChoice}>
+              <MultipleChoicesFormV2
+                defaultItems={block.items}
+                options={block.options}
+                onSubmit={props.onSubmit}
+              />
+            </Match>
+          </Switch>
+        )}
+      </Match>
       <Match when={isPictureChoiceBlock(props.block)} keyed>
         {(block) => (
           <Switch>
@@ -272,6 +296,13 @@ const isButtonsBlock = (
   block: ContinueChatResponse["input"],
 ): ChoiceInputBlock | undefined =>
   block?.type === InputBlockType.CHOICE ? block : undefined;
+
+const isButtonsV2Block = (
+  block: ContinueChatResponse["input"],
+): ChoiceV2InputBlock | undefined =>
+  block?.type === InputBlockType.CHOICE_V2
+    ? (block as unknown as ChoiceV2InputBlock)
+    : undefined;
 
 const isPictureChoiceBlock = (
   block: ContinueChatResponse["input"],

@@ -5,6 +5,7 @@ import { LogicBlockType } from "@typebot.io/blocks-logic/constants";
 export const getItemName = (blockType: BlockWithItems["type"]): string => {
   switch (blockType) {
     case InputBlockType.CHOICE:
+    case InputBlockType.CHOICE_V2:
       return "Button";
     case InputBlockType.PICTURE_CHOICE:
       return "Picture Choice";

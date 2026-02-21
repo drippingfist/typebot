@@ -18,7 +18,7 @@ type Props = {
   onTransitionEnd?: (ref?: HTMLDivElement) => void;
 };
 
-export const showAnimationDuration = 400;
+export const showAnimationDuration = 150;
 let typingTimeout: NodeJS.Timeout;
 
 export const VideoBubble = (props: Props) => {
@@ -33,7 +33,7 @@ export const VideoBubble = (props: Props) => {
       embeddableVideoTypes.includes(
         props.content?.type as EmbeddableVideoBubbleContentType,
       )
-        ? 2000
+        ? 500
         : 100;
     typingTimeout = setTimeout(() => {
       if (!isTyping()) return;

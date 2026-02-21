@@ -179,7 +179,8 @@ const isLastMessageIncludedInInput = (
 ): boolean => {
   if (isNotDefined(input)) return false;
   return (
-    input.type === InputBlockType.CHOICE &&
+    (input.type === InputBlockType.CHOICE ||
+      input.type === InputBlockType.CHOICE_V2) &&
     (!lastMessage || lastMessage.type === BubbleBlockType.TEXT)
   );
 };

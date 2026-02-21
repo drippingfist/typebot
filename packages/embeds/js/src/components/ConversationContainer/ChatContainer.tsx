@@ -205,7 +205,7 @@ export const ChatContainer = (props: Props) => {
 
     const longRequest = setTimeout(() => {
       setIsSending(true);
-    }, 1000);
+    }, 300);
     autoScrollToBottom();
 
     const { data, error } = await continueChatQuery({
@@ -428,7 +428,7 @@ export const ChatContainer = (props: Props) => {
 
     const longRequest = setTimeout(() => {
       setIsSending(true);
-    }, 1000);
+    }, 300);
     autoScrollToBottom();
     const { data, error } = await continueChatQuery({
       apiHost: props.context.apiHost,

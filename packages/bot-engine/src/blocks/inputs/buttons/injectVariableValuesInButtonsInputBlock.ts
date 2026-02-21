@@ -1,4 +1,5 @@
 import type { ChoiceInputBlock } from "@typebot.io/blocks-inputs/choice/schema";
+import type { ChoiceV2InputBlock } from "@typebot.io/blocks-inputs/choiceV2/schema";
 import { isDefined, isNotEmpty } from "@typebot.io/lib/utils";
 import type { SessionStore } from "@typebot.io/runtime-session-store";
 import { deepParseVariables } from "@typebot.io/variables/deepParseVariables";
@@ -10,12 +11,12 @@ import { transformVariablesToList } from "@typebot.io/variables/transformVariabl
 import { filterChoiceItems } from "./filterChoiceItems";
 
 export const injectVariableValuesInButtonsInputBlock = (
-  block: ChoiceInputBlock,
+  block: ChoiceInputBlock | ChoiceV2InputBlock,
   {
     sessionStore,
     variables,
   }: { sessionStore: SessionStore; variables: Variable[] },
-): ChoiceInputBlock => {
+): ChoiceInputBlock | ChoiceV2InputBlock => {
   if (block.options?.dynamicVariableId) {
     const variable = variables.find(
       (variable) =>

@@ -8,6 +8,7 @@ import { Popover } from "@typebot.io/ui/components/Popover";
 import { cn } from "@typebot.io/ui/lib/cn";
 import { type JSX, useRef, useState } from "react";
 import { ButtonsBlockSettings } from "@/features/blocks/inputs/buttons/components/ButtonsBlockSettings";
+import { ButtonsV2BlockSettings } from "@/features/blocks/inputs/buttonsV2/components/ButtonsV2BlockSettings";
 import { CardsBlockSettings } from "@/features/blocks/inputs/cards/components/CardsBlockSettings";
 import { DateInputSettings } from "@/features/blocks/inputs/date/components/DateInputSettings";
 import { EmailInputSettings } from "@/features/blocks/inputs/emailInput/components/EmailInputSettings";
@@ -191,6 +192,14 @@ export const NodeSettings = ({
     case InputBlockType.CHOICE: {
       return (
         <ButtonsBlockSettings
+          options={node.options}
+          onOptionsChange={updateOptions}
+        />
+      );
+    }
+    case InputBlockType.CHOICE_V2: {
+      return (
+        <ButtonsV2BlockSettings
           options={node.options}
           onOptionsChange={updateOptions}
         />

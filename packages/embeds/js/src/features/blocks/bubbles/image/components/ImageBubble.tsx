@@ -10,9 +10,9 @@ type Props = {
   onTransitionEnd?: (ref?: HTMLDivElement) => void;
 };
 
-export const showAnimationDuration = 400;
+export const showAnimationDuration = 150;
 
-export const mediaLoadingFallbackTimeout = 5000;
+export const mediaLoadingFallbackTimeout = 3000;
 
 let typingTimeout: NodeJS.Timeout;
 

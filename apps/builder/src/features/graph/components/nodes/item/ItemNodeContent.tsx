@@ -34,6 +34,7 @@ export const ItemNodeContent = ({
 }: Props): JSX.Element | null => {
   switch (blockType) {
     case InputBlockType.CHOICE:
+    case InputBlockType.CHOICE_V2:
       return (
         <ButtonsItemNode
           item={item as ButtonItem}

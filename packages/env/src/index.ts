@@ -384,6 +384,12 @@ const whatsAppEnv = {
   },
 };
 
+const ssoEnv = {
+  server: {
+    SSO_JWT_SECRET: z.string().min(1).optional(),
+  },
+};
+
 const redisEnv = {
   server: {
     REDIS_URL: z.string().url().optional(),
@@ -504,6 +510,7 @@ export const env = createEnv({
     ...vercelEnv.server,
     ...sleekPlanEnv.server,
     ...whatsAppEnv.server,
+    ...ssoEnv.server,
     ...redisEnv.server,
     ...gitlabEnv.server,
     ...azureEnv.server,
