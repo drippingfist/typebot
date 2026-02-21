@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Build & Push Typebot
 
 on:
@@ -38,3 +39,88 @@ jobs:
           tags: ghcr.io/drippingfist/typebot-${{ matrix.scope }}:latest
           build-args: |
             SCOPE=${{ matrix.scope }}
+=======
+# syntax=docker/dockerfile:1
+
+ARG BUN_VERSION=1.3.6
+
+# -------------------------
+# Base (deps)
+# -------------------------
+FROM oven/bun:${BUN_VERSION}-slim AS deps
+WORKDIR /app
+
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
+# Keep these (your Dockerfile already had them)
+ARG BUN_RUNTIME_TRANSPILER_CACHE_PATH=0
+ARG BUN_INSTALL_BIN=/usr/local/bin
+ARG BUN_PKG_MANAGER=bun
+ARG DATABASE_URL=postgresql://
+
+# Needed for selecting builder/viewer entrypoint
+ARG SCOPE
+
+# Copy workspace manifests first for better caching
+COPY package.json bun.lockb turbo.json ./
+
+# If your repo has other config files required for install/build, copy them too
+# (harmless if they don't exist)
+COPY tsconfig.json* ./
+COPY .npmrc* ./
+COPY .yarnrc* ./
+
+# Copy the monorepo sources
+COPY apps ./apps
+COPY packages ./packages
+COPY scripts ./scripts
+
+# Install deps
+RUN bun install --frozen-lockfile
+
+# -------------------------
+# Build
+# -------------------------
+FROM deps AS build
+WORKDIR /app
+
+ARG SCOPE
+# NEW: Turbo filter can be explicit, but defaults to apps/<scope>
+ARG TURBO_FILTER
+
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
+# IMPORTANT: use TURBO_FILTER (or fallback) so Turbo matches a real workspace
+RUN set -eux; \
+  FILTER="${TURBO_FILTER:-apps/${SCOPE}}"; \
+  echo "Using turbo filter: ${FILTER}"; \
+  SKIP_ENV_CHECK=true NEXT_PUBLIC_VIEWER_URL=http://localhost \
+  bunx turbo build --filter="${FILTER}"
+
+# -------------------------
+# Runtime
+# -------------------------
+FROM oven/bun:${BUN_VERSION}-slim AS runner
+WORKDIR /app
+
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
+# Promote ARG -> ENV so shell-form ENTRYPOINT can expand it at runtime
+ARG SCOPE
+ENV SCOPE=${SCOPE}
+
+# Copy built app + deps
+COPY --from=build /app /app
+
+# Copy the correct entrypoint script (build-time ARG expansion)
+COPY scripts/${SCOPE}-entrypoint.sh ./
+RUN chmod +x ./${SCOPE}-entrypoint.sh
+
+EXPOSE 3000
+
+# Shell form so $SCOPE expands at runtime
+ENTRYPOINT ./${SCOPE}-entrypoint.sh
+>>>>>>> e41126d0df9ee50c263e66eedacf9fdb8c869049
