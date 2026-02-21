@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { cardsBlockSchema } from "./cards/schema";
 import { buttonsInputSchemas } from "./choice/schema";
+import { buttonsV2InputSchemas } from "./choiceV2/schema";
 import { dateInputSchema } from "./date/schema";
 import { emailInputSchema } from "./email/schema";
 import { fileInputBlockSchemas } from "./file/schema";
@@ -29,6 +30,7 @@ const inputBlockSchemas = [
 export const inputBlockV5Schema = z.discriminatedUnion("type", [
   ...inputBlockSchemas,
   buttonsInputSchemas.v5,
+  buttonsV2InputSchemas.v5,
   fileInputBlockSchemas.v5,
   pictureChoiceBlockSchemas.v5,
 ]);
@@ -37,6 +39,7 @@ export type InputBlockV5 = z.infer<typeof inputBlockV5Schema>;
 export const inputBlockV6Schema = z.discriminatedUnion("type", [
   ...inputBlockSchemas,
   buttonsInputSchemas.v6,
+  buttonsV2InputSchemas.v6,
   fileInputBlockSchemas.v6,
   pictureChoiceBlockSchemas.v6,
 ]);

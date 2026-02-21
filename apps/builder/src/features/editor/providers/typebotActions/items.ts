@@ -170,7 +170,8 @@ const createItem = (
       block.items.splice(itemIndex, 0, newItem);
       return newItem;
     }
-    case InputBlockType.CHOICE: {
+    case InputBlockType.CHOICE:
+    case InputBlockType.CHOICE_V2: {
       const baseItem = item as ButtonItem;
       const newItem = {
         ...baseItem,
@@ -256,7 +257,8 @@ export const duplicateItemDraft = (
       } satisfies ConditionItem;
       return { newItem, newEdges };
     }
-    case InputBlockType.CHOICE: {
+    case InputBlockType.CHOICE:
+    case InputBlockType.CHOICE_V2: {
       const baseItem = item as ButtonItem;
       const newItem = {
         ...baseItem,

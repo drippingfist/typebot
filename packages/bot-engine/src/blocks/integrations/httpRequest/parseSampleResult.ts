@@ -119,6 +119,7 @@ const parseResultSample = (
 const getSampleValue = (block: InputBlock, userEmail?: string): string => {
   switch (block.type) {
     case InputBlockType.CHOICE:
+    case InputBlockType.CHOICE_V2:
       return block.options?.isMultipleChoice
         ? block.items.map((item) => item.content).join(", ")
         : (block.items[0]?.content ?? "Item");

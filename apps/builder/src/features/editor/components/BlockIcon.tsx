@@ -14,6 +14,7 @@ import { ImageBubbleIcon } from "@/features/blocks/bubbles/image/components/Imag
 import { TextBubbleIcon } from "@/features/blocks/bubbles/textBubble/components/TextBubbleIcon";
 import { VideoBubbleIcon } from "@/features/blocks/bubbles/video/components/VideoBubbleIcon";
 import { ButtonsInputIcon } from "@/features/blocks/inputs/buttons/components/ButtonsIcon";
+import { ButtonsV2InputIcon } from "@/features/blocks/inputs/buttonsV2/components/ButtonsV2Icon";
 import { DateInputIcon } from "@/features/blocks/inputs/date/components/DateInputIcon";
 import { EmailInputIcon } from "@/features/blocks/inputs/emailInput/components/EmailInputIcon";
 import { FileInputIcon } from "@/features/blocks/inputs/fileUpload/components/FileInputIcon";
@@ -104,6 +105,12 @@ export const BlockIcon = ({ type, className }: BlockIconProps): JSX.Element => {
     case InputBlockType.CHOICE:
       return (
         <ButtonsInputIcon className={cn("text-orange-9 stroke-2", className)} />
+      );
+    case InputBlockType.CHOICE_V2:
+      return (
+        <ButtonsV2InputIcon
+          className={cn("text-orange-9 stroke-2", className)}
+        />
       );
     case InputBlockType.PICTURE_CHOICE:
       return (

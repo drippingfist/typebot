@@ -56,13 +56,21 @@ export const validateAndParseInputMessage = (
       if (!isValid) return { status: "fail" };
       return { status: "success", content: message.text };
     }
-    case InputBlockType.CHOICE: {
+    case InputBlockType.CHOICE:
+    case InputBlockType.CHOICE_V2: {
       if (!message || message.type !== "text") return { status: "fail" };
       if (block.options?.dynamicVariableId && skipValidation) {
         return {
           status: "success",
           content: message.text,
         };
+      }
+      if (
+        block.type === InputBlockType.CHOICE_V2 &&
+        "isTextInputOnClick" in (block.options ?? {}) &&
+        block.options?.isTextInputOnClick
+      ) {
+        return { status: "success", content: message.text };
       }
       const displayedItems = injectVariableValuesInButtonsInputBlock(block, {
         variables,

@@ -142,7 +142,8 @@ export const convertInputToWhatsAppMessages = async ({
       }
       return messages;
     }
-    case InputBlockType.CHOICE: {
+    case InputBlockType.CHOICE:
+    case InputBlockType.CHOICE_V2: {
       if (
         input.options?.isMultipleChoice ??
         defaultChoiceInputOptions.isMultipleChoice

@@ -29,7 +29,8 @@ export const formatInputForChatResponse = async (
   },
 ): Promise<ContinueChatResponse["input"]> => {
   switch (block.type) {
-    case InputBlockType.CHOICE: {
+    case InputBlockType.CHOICE:
+    case InputBlockType.CHOICE_V2: {
       return injectVariableValuesInButtonsInputBlock(block, {
         variables,
         sessionStore,
