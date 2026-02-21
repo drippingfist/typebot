@@ -20,6 +20,7 @@
     "@orpc/openapi": "^1.13.4",
     "@orpc/zod": "^1.13.4",
     "@orpc/otel": "^1.12.3",
+    "@typebot.io/auth": "workspace:*",
     "@typebot.io/bot-engine": "workspace:*",
     "@typebot.io/react": "workspace:*",
     "@typebot.io/prisma": "workspace:*",
