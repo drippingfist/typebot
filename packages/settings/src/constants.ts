@@ -14,8 +14,8 @@ export const defaultSettings = {
   },
   typingEmulation: {
     enabled: true,
-    speed: 400,
-    maxDelay: 3,
+    speed: 800,
+    maxDelay: 1.5,
     delayBetweenBubbles: 0,
     isDisabledOnFirstMessage: true,
   },

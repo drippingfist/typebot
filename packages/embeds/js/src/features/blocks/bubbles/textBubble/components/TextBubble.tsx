@@ -14,7 +14,7 @@ type Props = {
   onTransitionEnd?: (ref?: HTMLDivElement) => void;
 };
 
-export const showAnimationDuration = 400;
+export const showAnimationDuration = 150;
 
 let typingTimeout: NodeJS.Timeout;
 

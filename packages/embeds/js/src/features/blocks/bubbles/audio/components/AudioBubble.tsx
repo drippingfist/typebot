@@ -9,7 +9,7 @@ type Props = {
   onTransitionEnd?: (ref?: HTMLDivElement) => void;
 };
 
-const showAnimationDuration = 400;
+const showAnimationDuration = 150;
 const typingDuration = 100;
 
 let typingTimeout: NodeJS.Timeout;
