@@ -1,4 +1,4 @@
-name: Build and push Typebot image
+name: Build and push Typebot images
 
 on:
   push:
@@ -12,7 +12,9 @@ permissions:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        service: [builder, viewer]
     steps:
       - uses: actions/checkout@v4
 
@@ -24,9 +26,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: docker/build-push-action@v6
+      - name: Build and push
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile
           push: true
-          tags: ghcr.io/drippingfist/typebot:latest
+          build-args: |
+            SERVICE=${{ matrix.service }}
+          tags: ghcr.io/drippingfist/typebot-${{ matrix.service }}:latest
