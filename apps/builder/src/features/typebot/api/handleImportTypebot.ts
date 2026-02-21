@@ -140,13 +140,7 @@ export const handleImportTypebot = async ({
       theme: duplicatingBot.theme ? duplicatingBot.theme : {},
       settings: duplicatingBot.settings
         ? sanitizeSettings(duplicatingBot.settings, workspace.plan, "create")
-        : workspace.plan === Plan.FREE
-          ? {
-              general: {
-                isBrandingEnabled: true,
-              },
-            }
-          : {},
+        : {},
       folderId: await sanitizeFolderId({
         folderId: duplicatingBot.folderId,
         workspaceId: workspace.id,

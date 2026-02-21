@@ -355,45 +355,20 @@ export const handleStripeWebhook = async ({
       });
       for (const typebot of typebots) {
         const settings = typebot.settings as Settings;
-        if (settings.general?.isBrandingEnabled) continue;
-        await prisma.typebot.updateMany({
-          where: { id: typebot.id },
-          data: {
-            settings: {
-              ...settings,
-              general: {
-                ...settings.general,
-                isBrandingEnabled: true,
-              },
-              whatsApp: settings.whatsApp
-                ? {
-                    ...settings.whatsApp,
-                    isEnabled: false,
-                  }
-                : undefined,
-            },
-          },
-        });
-        const publishedTypebotSettings = typebot.publishedTypebot
-          ?.settings as Settings | null;
-        if (
-          !publishedTypebotSettings ||
-          publishedTypebotSettings?.general?.isBrandingEnabled
-        )
-          continue;
-        await prisma.publicTypebot.updateMany({
-          where: { id: typebot.id },
-          data: {
-            settings: {
-              updatedAt: new Date(),
-              ...publishedTypebotSettings,
-              general: {
-                ...publishedTypebotSettings.general,
-                isBrandingEnabled: true,
+        if (settings.whatsApp?.isEnabled) {
+          await prisma.typebot.updateMany({
+            where: { id: typebot.id },
+            data: {
+              settings: {
+                ...settings,
+                whatsApp: {
+                  ...settings.whatsApp,
+                  isEnabled: false,
+                },
               },
             },
-          },
-        });
+          });
+        }
       }
       return { message: "workspace downgraded in DB" };
     }

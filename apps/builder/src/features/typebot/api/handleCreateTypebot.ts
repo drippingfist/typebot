@@ -92,11 +92,7 @@ export const handleCreateTypebot = async ({
       theme: typebot.theme ? typebot.theme : {},
       settings: typebot.settings
         ? sanitizeSettings(typebot.settings, workspace.plan, "create")
-        : workspace.plan === Plan.FREE
-          ? {
-              general: { isBrandingEnabled: true },
-            }
-          : {},
+        : {},
       folderId: typebot.folderId,
       variables: typebot.variables
         ? sanitizeVariables({ variables: typebot.variables, groups })

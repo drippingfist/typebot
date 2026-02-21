@@ -16,16 +16,12 @@ export const sanitizeSettings = (
 ): Typebot["settings"] => ({
   ...settings,
   publicShare: mode === "create" ? undefined : settings.publicShare,
-  general:
-    workspacePlan === Plan.FREE || settings.general
-      ? {
-          ...settings.general,
-          isBrandingEnabled:
-            workspacePlan === Plan.FREE
-              ? true
-              : settings.general?.isBrandingEnabled,
-        }
-      : undefined,
+  general: settings.general
+    ? {
+        ...settings.general,
+        isBrandingEnabled: settings.general?.isBrandingEnabled,
+      }
+    : undefined,
   whatsApp: settings.whatsApp
     ? {
         ...settings.whatsApp,
